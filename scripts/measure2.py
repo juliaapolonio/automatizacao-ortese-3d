@@ -4,7 +4,7 @@
 import numpy as np
 import cv2
 
-img = cv2.imread('gradient.jpeg',1)
+img = cv2.imread('../data/images/gradient.jpeg',1)
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 blur = cv2.GaussianBlur(gray, (5, 5), 0)
 
@@ -25,5 +25,6 @@ for i in range(len(contours)):
     cv2.drawContours(drawing, contours, i, color_contours, 1, 8, hierarchy)
     cv2.drawContours(drawing, hull, i, color, 1, 8)
 
+# Show output images
 cv2.imshow("title", drawing)
 cv2.waitKey()
