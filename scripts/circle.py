@@ -1,3 +1,8 @@
+#Part of image processing script
+#Made by Julia Apolonio in 24/04/2020
+#Feature: gets coin from image and its radius and x,y center coordinates
+#Works perfectly on Ubuntu with these paths names
+
 # Import the necessary packages
 import numpy as np
 import cv2

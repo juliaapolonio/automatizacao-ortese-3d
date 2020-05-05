@@ -11,15 +11,15 @@
 import FreeCAD as FC
 import Mesh as ms
 
-# Valores de operação
+# Valores de operação de constraint no solido
 heightQuota = 46
 widthQuota = 7
-# Valores de medida
+
+# Valores de medida obtidos no script de processamento de img
 heightSize = 30
 widthSize = 70
 
 # Abre o arquivo
-print("Import file")
 App.openDocument(r"../data/ortese_mao_freecad.FCStd")
 
 # Define o sketch
