@@ -1,30 +1,30 @@
-#Part of image processing script
-#Made by Julia Apolonio in 24/04/2020
-#Feature: gets contourn and hull of hand, but not the convexity deffects
-#Works perfectly on Ubuntu with these paths names
+# Part of image processing script
+# Made by Julia Apolonio in 24/04/2020
+# Feature: gets contourn and hull of hand, but not the convexity deffects
+# Works perfectly on Ubuntu with these paths names
 
-#import necessary libraries
+# Import necessary libraries
 import numpy as np
 import cv2
 
-#read, treat and binarize image
+# Read, treat and binarize image
 img = cv2.imread('../data/images/gradient.jpeg',1)
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 blur = cv2.GaussianBlur(gray, (5, 5), 0)
 ret,thresh = cv2.threshold(blur,50,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
 
-#find contours of image
+# Find contours of image
 contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-#find hull of all contours
+# Find hull of all contours
 hull = []
 for i in range(len(contours)):
     hull.append(cv2.convexHull(contours[i], False))
 
-#create a new black image
+# Create a new black image
 drawing = np.zeros((thresh.shape[0], thresh.shape[1], 3), np.uint8)
 
-#draw contours and hulls
+# Draw contours and hulls
 for i in range(len(contours)):
     color_contours = (0, 255, 0) # green - color for contours
     color = (255, 0, 0) # blue - color for convex hull
