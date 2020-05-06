@@ -6,10 +6,10 @@
 
 # Importing necessary libraries
 import PySimpleGUI as sg
-import backup_click
+import click as backup_click
 import subprocess
 
-# Theme for window color
+# Theme for window color'
 sg.theme('DarkBlue')	
 
 # First window: choose image path and atribute it into a variable
