@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # script CAD para alteracao de peça dadas altura_mao e largura_mao
 # Feito por Julia Apolonio em 27/04/2020
 #
@@ -8,36 +9,38 @@
 # com os valores de altura e largura colocados
 
 # Bibliotecas necessárias
-import FreeCAD as FC
+import FreeCAD as App
 import Mesh as ms
 
-# Valores de operação de constraint no solido
-heightQuota = 46
-widthQuota = 7
+def script(heightSize, widthSize):
 
-# Valores de medida obtidos no script de processamento de img
-heightSize = 30
-widthSize = 70
+    # Valores de operação de constraint no solido
+    heightQuota = 46
+    widthQuota = 7
 
-#def script(h, v):
+    # Abre o arquivo
+    App.openDocument(r"../data/ortese_mao_freecad.FCStd")
 
-# Abre o arquivo
-App.openDocument(r"../data/ortese_mao_freecad.FCStd")
+    # Define o sketch
+    ActiveSketch = App.ActiveDocument.getObject('Sketch')
 
-# Define o sketch
-ActiveSketch = App.ActiveDocument.getObject('Sketch')
+    # Altera a altura
+    App.ActiveDocument.Sketch.setDatum(heightQuota, App.Units.Quantity(str(heightSize) + ' mm'))
 
-# Altera a altura
-App.ActiveDocument.Sketch.setDatum(heightQuota, App.Units.Quantity(str(heightSize) + '.000000 mm'))
+    # Altera a largura
+    App.ActiveDocument.Sketch.setDatum(widthQuota, App.Units.Quantity(str(widthSize) + ' mm'))
 
-# Altera a largura
-App.ActiveDocument.Sketch.setDatum(widthQuota, App.Units.Quantity(str(widthSize) + '.000000 mm'))
+    # Refresh
+    print("Running Refresh")
+    App.getDocument('ortese_mao_freecad').recompute()
 
-# Refresh
-print("Running Refresh")
-App.getDocument('ortese_mao_freecad').recompute()
+    # Salva o .stl
+    __objs__= []
+    __objs__.append(App.getDocument("ortese_mao_freecad").getObject("Body"))
+    ms.export(__objs__,u"../data/outputCAD.stl")
 
-# Salva o .stl
-__objs__= []
-__objs__.append(FC.getDocument("ortese_mao_freecad").getObject("Body"))
-ms.export(__objs__,u"../data/outputCAD.stl")
+    return("OK processed executed")
+
+# Execute pipeline
+if __name__ == "__main__":
+    script(h,w)

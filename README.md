@@ -37,3 +37,12 @@ Input: Image (any supported by [OpenCV](https://docs.opencv.org/master/d4/da8/gr
 Output: GCODE file
 
 ### This software is part of my undergraduate project for Biomedical Engineer, UFRN.
+
+### Installing guidelines:
+
+Install conda ...
+
+conda create -n auto freecad
+
+### This is necessary to execute FreeCAD within python
+export PYTHONPATH=/home/diegomscoelho/miniconda2/envs/julia/lib:$PYTHONPATH

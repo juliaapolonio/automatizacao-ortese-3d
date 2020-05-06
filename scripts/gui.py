@@ -6,8 +6,15 @@
 
 # Importing necessary libraries
 import PySimpleGUI as sg
-import click as backup_click
+import click as ck
 import subprocess
+import script_cad as sc
+import os
+
+# Make sure that scripts is executed within gui.py directory
+abspath = os.path.abspath(__file__)
+dname = os.path.dirname(abspath)
+os.chdir(dname)
 
 # Theme for window color'
 sg.theme('DarkBlue')	
@@ -25,31 +32,19 @@ layout = [  [sg.Text('Adicione os pontos de referência')],
 # Generate window
 window = sg.Window('Sw medicao nao invasiva', layout)
 
+h = None
+v = None
+
 # Event Loop to process "events" and get the "values" of the inputs
-while True:
+while h is None or v is None:
     event, values = window.read()
-    if event in ('Vertical'): #calls click detection function
-    	v = backup_click.img_click(path,'v')
+    if event in ('Vertical'): # calls click detection function
+        v = ck.img_click(path,'v')
+        print(v)
     
     elif event in ('Horizontal'):
-        h = backup_click.img_click(path,'h')
-    break
-
-
-# Third window: choose reference points for another direction (same thing as upper block)
-layout = [  [sg.Text('Adicione os pontos de referência')],
-            [sg.Button('Vertical'), sg.Button('Horizontal'), sg.Button('Cancelar')] ]
-
-window = sg.Window('Sw medicao nao invasiva', layout)
-
-while True:
-    event, values = window.read()
-    if event in ('Vertical'):
-        v = backup_click.img_click(path,'v')
-    
-    elif event in ('Horizontal'):
-        h = backup_click.img_click(path,'h')
-    break
+        h = ck.img_click(path,'h')
+        print(h)
 
 # Fourth window: show to user hand dimensions in mm
 layout = [  [sg.Text('As dimensões dessa mão são '+str(v)+' mm de largura e '+str(h)+' mm de altura.')],
@@ -61,7 +56,7 @@ while True:
     event, values = window.read()
     if event in (None, 'Cancelar'):	# if user closes window or clicks cancel
         break
-    subprocess.run('freecadcmd script_cad.py', shell = True) #calls CAD script directly at command line
+    sc.script(h,v)
     sg.popup_ok('Objeto criado') 
     break
 
