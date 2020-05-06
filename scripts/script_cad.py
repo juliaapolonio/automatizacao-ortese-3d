@@ -19,6 +19,8 @@ widthQuota = 7
 heightSize = 30
 widthSize = 70
 
+#def script(h, v):
+
 # Abre o arquivo
 App.openDocument(r"../data/ortese_mao_freecad.FCStd")
 
