@@ -45,4 +45,4 @@ Install conda ...
 conda create -n auto freecad
 
 ### This is necessary to execute FreeCAD within python
-export PYTHONPATH=/home/diegomscoelho/miniconda2/envs/julia/lib:$PYTHONPATH
+export PYTHONPATH=~/miniconda3/envs/julia/lib:$PYTHONPATH
