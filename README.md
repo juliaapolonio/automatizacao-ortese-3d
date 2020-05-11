@@ -18,6 +18,23 @@ Input: Imagem (qualquer suportada por [OpenCV](https://docs.opencv.org/master/d4
 
 Output: Arquivo GCODE
 
+## Instruções para instalar e executar
+
+Primeiro, instale o [miniconda3](https://docs.conda.io/en/latest/miniconda.html)  
+Depois de completar a instalação, abra o terminal ou o prompt de comando e crie um novo environment chamado "ort3d" usando   
+`conda create -n ort3d python=3.7`    
+Então, entre no novo environment  
+`conda activate ort3d`  
+Nesse environment, instale o freeCAd usando  
+`conda install -c conda-forge freecad`  
+Navegue até o caminho desse arquivo. Depois, você vai precisar instalar todas as dependências usando  
+`pip install -r requirements.txt`  
+E para o freeCAD funcionar, use também  
+`export PYTHONPATH=~/miniconda3/envs/ort3d/lib:$PYTHONPATH`  
+Para executar, use  
+`python scripts/gui.py`  
+
+
 ### Esse software é parte do meu TCC no curso de Engenharia Biomédica, UFRN.
 
 # Automatization of 3d-printed orthosis manufacturing process
@@ -36,13 +53,21 @@ Input: Image (any supported by [OpenCV](https://docs.opencv.org/master/d4/da8/gr
 
 Output: GCODE file
 
+## Instructions for installing and executing
+
+First, install [miniconda3](https://docs.conda.io/en/latest/miniconda.html)  
+After installation is complete, open terminal or command prompt and create a new environment called "ort3d" using   
+`conda create -n ort3d python=3.7`    
+Then, enter on your new environment  
+`conda activate ort3d`  
+On this new environment, install FreeCAD using  
+`conda install -c conda-forge freecad`  
+Navigate to this file path. After that, you will need to install all software dependencies using   
+`pip install -r requirements.txt`  
+And to get things woring with freeCAD, also use  
+`export PYTHONPATH=~/miniconda3/envs/ort3d/lib:$PYTHONPATH`  
+To run the software, type  
+`python scripts/gui.py`  
+
+
 ### This software is part of my undergraduate project for Biomedical Engineer, UFRN.
-
-### Installing guidelines:
-
-Install conda ...
-
-conda create -n auto freecad
-
-### This is necessary to execute FreeCAD within python
-export PYTHONPATH=~/miniconda3/envs/julia/lib:$PYTHONPATH
