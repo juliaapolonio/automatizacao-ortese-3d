@@ -39,7 +39,6 @@ def script(heightSize, widthSize):
     __objs__.append(App.getDocument("ortese_mao_freecad").getObject("Body"))
     ms.export(__objs__,u"../data/outputCAD.stl")
 
-    return("OK processed executed")
 
 # Execute pipeline
 if __name__ == "__main__":
