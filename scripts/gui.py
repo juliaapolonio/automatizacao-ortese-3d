@@ -17,17 +17,36 @@ dname = os.path.dirname(abspath)
 os.chdir(dname)
 
 # Theme for window color'
-sg.theme('DarkBlue')	
+sg.theme('GreenMono')	
 
 # First window: choose image path and atribute it into a variable
-event, values = sg.Window('Adicione a imagem da mão', [[sg.Text('Nome do arquivo')], [sg.Input(), sg.FileBrowse()], [sg.OK(), sg.Cancel()] ]).Read()
-path = values[0]
+
+layout = [[sg.Text('Nome do arquivo')], [sg.Input(), sg.FileBrowse()], [sg.OK(), sg.Cancel()] ]
+
+window = sg.Window('Adicione a imagem da mão', layout)
+
+while True:
+    event, values = window.read()
+
+    if event in ('Cancel'):
+        window.close()
+        exit()
+
+    if event in ('OK'):
+        path = values[0]
+
+    if not path:
+        sg.popup("No path supplied")
+        continue
+    break
+
+window.close()
 
 # Second window: choose reference points for one direction
 
 # Define layout
 layout = [  [sg.Text('Adicione os pontos de referência')],
-            [sg.Button('Vertical'), sg.Button('Horizontal'), sg.Button('Cancelar')] ]
+            [sg.Button('Vertical'), sg.Button('Horizontal'), sg.Button('Confirmar'), sg.Button('Cancelar')]]
 
 # Generate window
 window = sg.Window('Sw medicao nao invasiva', layout)
@@ -36,17 +55,28 @@ h = None
 v = None
 
 # Event Loop to process "events" and get the "values" of the inputs
-while h is None or v is None:
+while True:
     event, values = window.read()
-    if event in ('Vertical'): # calls click detection function
+
+    if event in (None, 'Cancelar'):
+        window.close()
+        exit()
+
+    elif event in ('Vertical'): # calls click detection function
         v = ck.img_click(path,'v')
-        print(v)
     
     elif event in ('Horizontal'):
         h = ck.img_click(path,'h')
-        print(h)
 
-# Fourth window: show to user hand dimensions in mm
+    elif event in ('Confirmar'):
+        if h is None or v is None:
+            sg.popup_ok('Informacoes insuficientes')
+        else:
+            break 
+
+window.close()
+
+# Third window: show to user hand dimensions in mm
 layout = [  [sg.Text('As dimensões dessa mão são '+str(v)+' mm de largura e '+str(h)+' mm de altura.')],
             [sg.Button('Gerar Ortese'), sg.Button('Cancelar')] ]
 
@@ -54,8 +84,11 @@ window = sg.Window('Sw medicao nao invasiva', layout)
 
 while True:
     event, values = window.read()
+
     if event in (None, 'Cancelar'):	# if user closes window or clicks cancel
-        break
+        window.close()
+        exit()
+
     sc.script(h,v)
     sg.popup_ok('Objeto criado') 
     break
