@@ -35,7 +35,7 @@ while True:
         path = values[0]
 
     if not path:
-        sg.popup("No path supplied")
+        sg.popup("O arquivo não foi fornecido")
         continue
     break
 
@@ -68,8 +68,10 @@ while True:
         h = ck.img_click(path,'h')
 
     elif event in ('Confirmar'):
-        if h is None or v is None:
-            sg.popup_ok('Informacoes insuficientes')
+        if h is None:
+            sg.popup_ok('Pontos horizontais não fornecidos')
+        elif v is None:
+            sg.popup_ok('Pontos verticais não fornecidos')            
         else:
             break 
 
