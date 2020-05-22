@@ -20,7 +20,6 @@ os.chdir(dname)
 sg.theme('GreenMono')	
 
 # First window: choose image path and atribute it into a variable
-
 layout = [[sg.Text('Nome do arquivo')], [sg.Input(), sg.FileBrowse()], [sg.OK(), sg.Cancel()] ]
 
 window = sg.Window('Adicione a imagem da mão', layout)

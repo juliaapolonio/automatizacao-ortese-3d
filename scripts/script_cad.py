@@ -11,6 +11,7 @@
 # Bibliotecas necessárias
 import FreeCAD as App
 import Mesh as ms
+import os
 
 def script(heightSize, widthSize):
 
@@ -18,8 +19,14 @@ def script(heightSize, widthSize):
     heightQuota = 46
     widthQuota = 7
 
+    # Caminho valido para Windows e Linux 
+    path = '..'+os.sep+'data'+os.sep
+
     # Abre o arquivo
-    App.openDocument(r"../data/ortese_mao_freecad.FCStd")
+    input_filename = 'ortese_mao_freecad.FCStd'
+    input_path = path+input_filename
+
+    App.openDocument(input_path)
 
     # Define o sketch
     ActiveSketch = App.ActiveDocument.getObject('Sketch')
@@ -35,9 +42,11 @@ def script(heightSize, widthSize):
     App.getDocument('ortese_mao_freecad').recompute()
 
     # Salva o .stl
+    output_filename = 'outputCAD.stl'
+    output_path = path+output_filename
     __objs__= []
     __objs__.append(App.getDocument("ortese_mao_freecad").getObject("Body"))
-    ms.export(__objs__,u"../data/outputCAD.stl")
+    ms.export(__objs__,output_path)
 
 
 # Execute pipeline
