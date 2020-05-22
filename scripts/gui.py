@@ -20,13 +20,17 @@ os.chdir(dname)
 sg.theme('GreenMono')	
 
 # First window: choose image path and atribute it into a variable
+# Define layout
 layout = [[sg.Text('Nome do arquivo')], [sg.Input(), sg.FileBrowse()], [sg.OK(), sg.Cancel()] ]
 
+# Generate window
 window = sg.Window('Adicione a imagem da mão', layout)
 
+# Loop to read events and values of window
 while True:
     event, values = window.read()
 
+    # Closes window and stop the script 
     if event in ('Cancel'):
         window.close()
         exit()
@@ -34,15 +38,16 @@ while True:
     if event in ('OK'):
         path = values[0]
 
+    # Only allows the scrpit to continue is path is given
     if not path:
         sg.popup("O arquivo não foi fornecido")
         continue
     break
 
+# Closes first window
 window.close()
 
 # Second window: choose reference points for one direction
-
 # Define layout
 layout = [  [sg.Text('Adicione os pontos de referência')],
             [sg.Button('Vertical'), sg.Button('Horizontal'), sg.Button('Confirmar'), sg.Button('Cancelar')]]
@@ -50,6 +55,7 @@ layout = [  [sg.Text('Adicione os pontos de referência')],
 # Generate window
 window = sg.Window('Sw medicao nao invasiva', layout)
 
+# Declare parameters to choose horizontal or vertical
 h = None
 v = None
 
@@ -78,6 +84,7 @@ while True:
 window.close()
 
 # Third window: show to user hand dimensions in mm
+# Follows the same process as other loops
 layout = [  [sg.Text('As dimensões dessa mão são '+str(v)+' mm de largura e '+str(h)+' mm de altura.')],
             [sg.Button('Gerar Ortese'), sg.Button('Cancelar')] ]
 
@@ -86,10 +93,10 @@ window = sg.Window('Sw medicao nao invasiva', layout)
 while True:
     event, values = window.read()
 
-    if event in (None, 'Cancelar'):	# if user closes window or clicks cancel
+    if event in (None, 'Cancelar'):	# If user closes window or clicks cancel
         window.close()
         exit()
-
+    # CAD script call
     sc.script(h,v)
     sg.popup_ok('Objeto criado') 
     break

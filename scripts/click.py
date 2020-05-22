@@ -28,12 +28,14 @@ def img_click(path, orientation):
 	cv2.namedWindow('image', cv2.WINDOW_NORMAL)
 	cv2.resizeWindow('image', window_width, window_height)
 
-	i=0
-	# Displays the image, gets two right-clicks in that and then closes image
+	# Displays the image, gets two right-clicks in that, draw circles at the events and then closes image
 	while True:
+		# Show image
 		cv2.imshow("image", img)
+		# Get mouse event
 		cv2.setMouseCallback('image', mouse_callback)
 		key = cv2.waitKey(1) & 0xFF
+		# Draw circles at clicks and then close image
 		if len(right_clicks) == 1:
 			cv2.circle(img,(right_clicks[0][0],right_clicks[0][1]),10,(255,0,0),-1)
 		elif len(right_clicks) == 2:
@@ -43,7 +45,6 @@ def img_click(path, orientation):
 			break
 
 	cv2.destroyAllWindows()
-
 
 	# Calls real scale ratio function to a variable
 	object_scale = scale_ob.ratio(path)
@@ -72,9 +73,6 @@ def mouse_callback(event, x, y, flags, params):
 
     # Right-click event value is 2
     if event == cv2.EVENT_LBUTTONDBLCLK:
-    	#image = np.zeros((480, 640, 4), dtype=np.uint8)
-    	#cv2.circle(img,(x,y),100,(255,0,0),-1)
     	global right_clicks
     	# Store the coordinates of the right-click event
     	right_clicks.append([x, y])
-    	#cv2.imshow("image", image)
