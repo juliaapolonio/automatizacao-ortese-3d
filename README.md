@@ -38,7 +38,16 @@ Para executar, use no Linux
 Ou no Windows  
 `python scripts\gui.py`  
 
+## Temporário: Módulo CAM
 
+Para rodar o módulo CAM (disponível só para Linux), primeiro vá para a pasta do Slic3r  
+`cd ../Slic3r`  
+Autorize o script bash  
+`chmod +x gera_gcode.sh`  
+E execute  
+`./gera_gcode.sh`  
+
+Isso criará sua saída (.gcode) em /data  
 
 ### Esse software é parte do meu TCC no curso de Engenharia Biomédica, UFRN.
 
@@ -78,6 +87,15 @@ To run the software, type for Linux
 Or Windows  
 `python scripts\gui.py`  
 
+## Temporary: CAM Module
 
+To run CAM Module (feature available only at Linux), first go to Slic3r file  
+`cd ../Slic3r`  
+Enable bash script  
+`chmod +x gera_gcode.sh`  
+And run  
+`./gera_gcode.sh`  
+
+This will create your output file (.gcode) at /data  
 
 ### This software is part of my undergraduate project for Biomedical Engineer, UFRN.
