@@ -2,4 +2,7 @@
 
 *.stl
 
+*.gcode
+
 __pycache__/
+
