@@ -29,10 +29,15 @@ Nesse environment, instale o freeCAd usando
 `conda install -c conda-forge freecad`  
 Navegue até o caminho desse arquivo. Depois, você vai precisar instalar todas as dependências usando  
 `pip install -r requirements.txt`  
-E para o freeCAD funcionar, use também  
+E para o freeCAD funcionar, use para Linux  
 `export PYTHONPATH=~/miniconda3/envs/ort3d/lib:$PYTHONPATH`  
-Para executar, use  
+Ou para Windows  
+`set PYTHONPATH=%PYTHONPATH%;%systemdrive%%homepath%\miniconda3\envs\ort3d\lib`  
+Para executar, use no Linux  
 `python scripts/gui.py`  
+Ou no Windows  
+`python scripts\gui.py`  
+
 
 
 ### Esse software é parte do meu TCC no curso de Engenharia Biomédica, UFRN.
@@ -64,10 +69,15 @@ On this new environment, install FreeCAD using
 `conda install -c conda-forge freecad`  
 Navigate to this file path. After that, you will need to install all software dependencies using   
 `pip install -r requirements.txt`  
-And to get things woring with freeCAD, also use  
+And to get things woring with freeCAD, also use for Linux  
 `export PYTHONPATH=~/miniconda3/envs/ort3d/lib:$PYTHONPATH`  
-To run the software, type  
+Or Windows  
+`set PYTHONPATH=%PYTHONPATH%;%systemdrive%%homepath%\miniconda3\envs\ort3d\lib`  
+To run the software, type for Linux  
 `python scripts/gui.py`  
+Or Windows  
+`python scripts\gui.py`  
+
 
 
 ### This software is part of my undergraduate project for Biomedical Engineer, UFRN.

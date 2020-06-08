@@ -4,7 +4,8 @@
 # Import necessary libraries
 import cv2
 import scale_ob
-
+import numpy as np
+import time
 
 # Stores each right-click event coordinates [x, y]
 right_clicks = list()
@@ -27,14 +28,22 @@ def img_click(path, orientation):
 	cv2.namedWindow('image', cv2.WINDOW_NORMAL)
 	cv2.resizeWindow('image', window_width, window_height)
 
-
-	# Displays the image, gets two right-clicks in that and then closes image
+	# Displays the image, gets two right-clicks in that, draw circles at the events and then closes image
 	while True:
-		cv2.setMouseCallback('image', mouse_callback)
+		# Show image
 		cv2.imshow("image", img)
+		# Get mouse event
+		cv2.setMouseCallback('image', mouse_callback)
 		key = cv2.waitKey(1) & 0xFF
-		if len(right_clicks) == 2:
+		# Draw circles at clicks and then close image
+		if len(right_clicks) == 1:
+			cv2.circle(img,(right_clicks[0][0],right_clicks[0][1]),10,(255,0,0),-1)
+		elif len(right_clicks) == 2:
+			cv2.circle(img,(right_clicks[1][0],right_clicks[1][1]),10,(255,0,0),-1)
+			cv2.imshow("image", img)
+			key = cv2.waitKey(500) & 0xFF
 			break
+
 	cv2.destroyAllWindows()
 
 	# Calls real scale ratio function to a variable
@@ -52,7 +61,7 @@ def img_click(path, orientation):
 		# Vertical
 		ya = right_clicks[0][1]
 		yb = right_clicks[1][1]
-		dp = abs(ya-yb)
+		dp = abs(ya-yb) 
 		d = dp*object_scale
 
 	# Distance obtained is returned by function
@@ -63,8 +72,7 @@ def img_click(path, orientation):
 def mouse_callback(event, x, y, flags, params):
 
     # Right-click event value is 2
-    if event == 2:
-
-        global right_clicks
-        # Store the coordinates of the right-click event
-        right_clicks.append([x, y])
+    if event == cv2.EVENT_LBUTTONDBLCLK:
+    	global right_clicks
+    	# Store the coordinates of the right-click event
+    	right_clicks.append([x, y])
