@@ -6,10 +6,12 @@
 
 # Importing necessary libraries
 import PySimpleGUI as sg
-import click as ck
 import subprocess
-import script_cad as sc
 import os
+
+# Native libraries
+import click as ck
+import script_cad as sc
 
 # Make sure that scripts is executed within gui.py directory
 abspath = os.path.abspath(__file__)
