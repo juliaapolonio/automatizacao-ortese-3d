@@ -8,6 +8,11 @@
 import PySimpleGUI as sg
 import subprocess
 import os
+import sys
+
+# ADD FreeCAD PYTHONPATH
+home = os.environ['HOME']
+sys.path.append(home + '/miniconda3/envs/ort3d/lib')
 
 # Native libraries
 import click as ck
