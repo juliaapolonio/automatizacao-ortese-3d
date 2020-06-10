@@ -41,9 +41,7 @@ Ou no Windows
 ## Temporário: Módulo CAM
 
 Para rodar o módulo CAM (disponível só para Linux), primeiro vá para a pasta do Slic3r  
-`cd ../Slic3r`  
-Autorize o script bash  
-`chmod +x gera_gcode.sh`  
+`cd Slic3r`  
 E execute  
 `./gera_gcode.sh`  
 
@@ -90,9 +88,7 @@ Or Windows
 ## Temporary: CAM Module
 
 To run CAM Module (feature available only at Linux), first go to Slic3r file  
-`cd ../Slic3r`  
-Enable bash script  
-`chmod +x gera_gcode.sh`  
+`cd Slic3r`  
 And run  
 `./gera_gcode.sh`  
 
