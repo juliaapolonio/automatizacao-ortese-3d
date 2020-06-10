@@ -12,6 +12,7 @@ import os
 # Native libraries
 import click as ck
 import script_cad as sc
+import slicer as sl
 
 # Make sure that scripts is executed within gui.py directory
 abspath = os.path.abspath(__file__)
@@ -101,6 +102,22 @@ while True:
     # CAD script call
     sc.script(h,v)
     sg.popup_ok('Objeto criado') 
+    break
+
+layout = [  [sg.Text("O arquivo .stl foi gerado. Gerar G-Code?")],
+            [sg.Button('Fatiar'), sg.Button('Cancelar')] ]
+
+window = sg.Window('Sw medicao nao invasiva', layout)
+
+while True:
+    event, values = window.read()
+
+    if event in (None, 'Cancelar'):	# If user closes window or clicks cancel
+        window.close()
+        exit()
+    # CAD script call
+    sl.runSlicer()
+    sg.popup_ok('G-Code gravado!') 
     break
 
 #close GUI   
