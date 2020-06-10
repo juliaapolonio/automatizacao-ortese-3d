@@ -21,31 +21,11 @@ Output: Arquivo GCODE
 ## Instruções para instalar e executar
 
 Primeiro, instale o [miniconda3](https://docs.conda.io/en/latest/miniconda.html)  
-Depois de completar a instalação, abra o terminal ou o prompt de comando e crie um novo environment chamado "ort3d" usando   
-`conda create -n ort3d python=3.7`    
-Então, entre no novo environment  
-`conda activate ort3d`  
-Nesse environment, instale o freeCAd usando  
-`conda install -c conda-forge freecad`  
-Navegue até o caminho desse arquivo. Depois, você vai precisar instalar todas as dependências usando  
-`pip install -r requirements.txt`  
-E para o freeCAD funcionar, use para Linux  
-`export PYTHONPATH=~/miniconda3/envs/ort3d/lib:$PYTHONPATH`  
-Ou para Windows  
-`set PYTHONPATH=%PYTHONPATH%;%systemdrive%%homepath%\miniconda3\envs\ort3d\lib`  
-Para executar, use no Linux  
+Depois de completar a instalação, execute o arquivo install.sh para a instalação de todos os requisitos   
+Para executar o script, use  
 `python scripts/gui.py`  
-Ou no Windows  
-`python scripts\gui.py`  
 
-## Temporário: Módulo CAM
-
-Para rodar o módulo CAM (disponível só para Linux), primeiro vá para a pasta do Slic3r  
-`cd Slic3r`  
-E execute  
-`./gera_gcode.sh`  
-
-Isso criará sua saída (.gcode) em /data  
+A saída do script (arquivo G-CODE) vai estar em /data/saida.gcode
 
 ### Esse software é parte do meu TCC no curso de Engenharia Biomédica, UFRN.
 
@@ -68,30 +48,10 @@ Output: GCODE file
 ## Instructions for installing and executing
 
 First, install [miniconda3](https://docs.conda.io/en/latest/miniconda.html)  
-After installation is complete, open terminal or command prompt and create a new environment called "ort3d" using   
-`conda create -n ort3d python=3.7`    
-Then, enter on your new environment  
-`conda activate ort3d`  
-On this new environment, install FreeCAD using  
-`conda install -c conda-forge freecad`  
-Navigate to this file path. After that, you will need to install all software dependencies using   
-`pip install -r requirements.txt`  
-And to get things woring with freeCAD, also use for Linux  
-`export PYTHONPATH=~/miniconda3/envs/ort3d/lib:$PYTHONPATH`  
-Or Windows  
-`set PYTHONPATH=%PYTHONPATH%;%systemdrive%%homepath%\miniconda3\envs\ort3d\lib`  
-To run the software, type for Linux  
+After installation is complete, run install.sh to install all requirements  
+To run the software  
 `python scripts/gui.py`  
-Or Windows  
-`python scripts\gui.py`  
 
-## Temporary: CAM Module
-
-To run CAM Module (feature available only at Linux), first go to Slic3r file  
-`cd Slic3r`  
-And run  
-`./gera_gcode.sh`  
-
-This will create your output file (.gcode) at /data  
+This will create your output file (.gcode) at /data/saida.gcode  
 
 ### This software is part of my undergraduate project for Biomedical Engineer, UFRN.
