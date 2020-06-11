@@ -76,10 +76,10 @@ while True:
         exit()
 
     elif event in ('Vertical'): # calls click detection function
-        v = ck.img_click(path,'v')
+        v = ck.img_click(path)
     
     elif event in ('Horizontal'):
-        h = ck.img_click(path,'h')
+        h = ck.img_click(path)
 
     elif event in ('Confirmar'):
         if h is None:
