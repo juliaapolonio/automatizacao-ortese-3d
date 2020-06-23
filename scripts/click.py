@@ -6,13 +6,14 @@ import cv2
 import scale_ob
 import numpy as np
 import time
+import math
 
 # Stores each right-click event coordinates [x, y]
 right_clicks = list()
 
 
 # This function will be called whenever the mouse is right-clicked
-def img_click(path, orientation):
+def img_click(path):
 
 	# Open image
 	img = cv2.imread(path,0)
@@ -50,19 +51,13 @@ def img_click(path, orientation):
 	object_scale = scale_ob.ratio(path)
 
 	# Obtains the value of desired coordinates, then calculate horizontal or vertical distance between them
-	if orientation == 'h':
-		# Horizontal
-		xa = right_clicks[0][0]
-		xb = right_clicks[1][0]
-		dp = abs(xa-xb)
-		d = dp*object_scale
 
-	elif orientation == 'v':
-		# Vertical
-		ya = right_clicks[0][1]
-		yb = right_clicks[1][1]
-		dp = abs(ya-yb) 
-		d = dp*object_scale
+	xa = right_clicks[0][0]
+	xb = right_clicks[1][0]
+	ya = right_clicks[0][1]
+	yb = right_clicks[1][1]
+	dp = math.sqrt(pow((xa-xb),2)+pow((ya-yb),2))
+	d = dp*object_scale
 
 	# Distance obtained is returned by function
 	right_clicks.clear()

@@ -6,10 +6,18 @@
 
 # Importing necessary libraries
 import PySimpleGUI as sg
-import click as ck
 import subprocess
-import script_cad as sc
 import os
+import sys
+
+# ADD FreeCAD PYTHONPATH
+home = os.environ['HOME']
+sys.path.append(home + '/miniconda3/envs/ort3d/lib')
+
+# Native libraries
+import click as ck
+import script_cad as sc
+import slicer as sl
 
 # Make sure that scripts is executed within gui.py directory
 abspath = os.path.abspath(__file__)
@@ -49,8 +57,8 @@ window.close()
 
 # Second window: choose reference points for one direction
 # Define layout
-layout = [  [sg.Text('Adicione os pontos de referência')],
-            [sg.Button('Vertical'), sg.Button('Horizontal'), sg.Button('Confirmar'), sg.Button('Cancelar')]]
+layout = [  [sg.Text('Adicione os pontos de referência - altura: distância da ponta do dedo médio ao punho/ largura: distância de uma extremidade a outra da mão na altura da AMF ')],
+            [sg.Button('Altura'), sg.Button('Largura'), sg.Button('Confirmar'), sg.Button('Cancelar')]]
 
 # Generate window
 window = sg.Window('Sw medicao nao invasiva', layout)
@@ -67,17 +75,17 @@ while True:
         window.close()
         exit()
 
-    elif event in ('Vertical'): # calls click detection function
-        v = ck.img_click(path,'v')
+    elif event in ('Largura'): # calls click detection function
+        v = ck.img_click(path)
     
-    elif event in ('Horizontal'):
-        h = ck.img_click(path,'h')
+    elif event in ('Altura'):
+        h = ck.img_click(path)
 
     elif event in ('Confirmar'):
         if h is None:
-            sg.popup_ok('Pontos horizontais não fornecidos')
+            sg.popup_ok('Pontos de altura não fornecidos')
         elif v is None:
-            sg.popup_ok('Pontos verticais não fornecidos')            
+            sg.popup_ok('Pontos de largura não fornecidos')            
         else:
             break 
 
@@ -98,7 +106,22 @@ while True:
         exit()
     # CAD script call
     sc.script(h,v)
-    sg.popup_ok('Objeto criado') 
+    break
+
+layout = [  [sg.Text("O arquivo .stl foi gerado. Gerar G-Code?")],
+            [sg.Button('Fatiar'), sg.Button('Cancelar')] ]
+
+window = sg.Window('Sw medicao nao invasiva', layout)
+
+while True:
+    event, values = window.read()
+
+    if event in (None, 'Cancelar'):	# If user closes window or clicks cancel
+        window.close()
+        exit()
+    # CAD script call
+    sl.runSlicer()
+    sg.popup_ok('G-Code gravado!') 
     break
 
 #close GUI   

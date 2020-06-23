@@ -2,4 +2,8 @@
 
 *.stl
 
+*.gcode
+
 __pycache__/
+
+Slic3r/
