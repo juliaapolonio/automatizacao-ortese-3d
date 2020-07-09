@@ -16,8 +16,8 @@ import os
 def script(heightSize, widthSize):
 
     # Valores de operação de constraint no solido
-    heightQuota = 46
-    widthQuota = 7
+    heightQuota = 101
+    widthQuota = 96
 
     # Caminho valido para Windows e Linux 
     path = '..'+os.sep+'data'+os.sep
