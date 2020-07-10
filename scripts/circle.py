@@ -1,5 +1,5 @@
 # Part of image processing script
-# Made by Julia Apolonio in 24/04/2020
+# Made by Julia Apolonio on 24/04/2020
 # Feature: gets coin from image and its radius and x,y center coordinates
 # Works perfectly on Ubuntu with these paths names
 
@@ -16,7 +16,7 @@ def crl(path):
 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 # Detect circles in the image
-	circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1.2, 100)
+	circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1, 20, param1=150, param2=30, minRadius=0, maxRadius=0)
 	
 # Ensure at least some circles were found
 	if circles is not None:
