@@ -16,9 +16,17 @@ import os
 def script(heightSize, widthSize):
 
     # Valores de operação de constraint no solido
-    heightQuota = 101
-    widthQuota = 96
+    heightQuota = 57
+    widthQuota = 47
 
+    heightSize = heightSize / 2
+    maxh = heightSize * 2.90
+
+    if maxh > 260:
+        maxh = 260
+        heightSize = maxh / 2.90
+
+    widthSize = widthSize * 2.49
     # Caminho valido para Windows e Linux 
     path = '..'+os.sep+'data'+os.sep
 
