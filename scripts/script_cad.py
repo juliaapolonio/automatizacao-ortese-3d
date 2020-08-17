@@ -10,52 +10,40 @@
 
 # Bibliotecas necessárias
 import FreeCAD as App
-import Mesh as ms
+import Mesh 
 import os
 
 def script(heightSize, widthSize):
 
-    # Valores de operação de constraint no solido
-    heightQuota = 57
-    widthQuota = 47
+    # Definindo os fatores de escala
+    defaultHeight = 190.00
+    defaultWidth = 80.00
 
-    heightSize = heightSize / 2
-    maxh = heightSize * 2.90
+    scaleh = heightSize/defaultHeight
+    scalew = widthSize/defaultWidth
 
-    if maxh > 260:
-        maxh = 260
-        heightSize = maxh / 2.90
-
-    widthSize = widthSize * 2.49
     # Caminho valido para Windows e Linux 
     path = '..'+os.sep+'data'+os.sep
 
     # Abre o arquivo
-    input_filename = 'ortese_mao_freecad.FCStd'
+    input_filename = 'outputCAD.stl'
     input_path = path+input_filename
+    Mesh.open(input_path)
+    App.setActiveDocument("Unnamed")
+    App.ActiveDocument=App.getDocument("Unnamed")   
 
-    App.openDocument(input_path)
-
-    # Define o sketch
-    ActiveSketch = App.ActiveDocument.getObject('Sketch')
-
-    # Altera a altura
-    App.ActiveDocument.Sketch.setDatum(heightQuota, App.Units.Quantity(str(heightSize) + ' mm'))
-
-    # Altera a largura
-    App.ActiveDocument.Sketch.setDatum(widthQuota, App.Units.Quantity(str(widthSize) + ' mm'))
-
-    # Refresh
-    print("Running Refresh")
-    App.getDocument('ortese_mao_freecad').recompute()
+    # Mesh operations
+    mesh = App.ActiveDocument.outputCAD.Mesh.copy()
+    mat = App.Matrix()
+    mat.scale(scalew,scaleh,1)
+    mesh.transform(mat)
+    Mesh.show(mesh)
+    App.getDocument("Unnamed").removeObject("outputCAD")
 
     # Salva o .stl
-    output_filename = 'outputCAD.stl'
+    output_filename = 'outputCAD2.stl'
     output_path = path+output_filename
-    __objs__= []
-    __objs__.append(App.getDocument("ortese_mao_freecad").getObject("Body"))
-    ms.export(__objs__,output_path)
-
+    mesh.write(output_path)
 
 # Execute pipeline
 if __name__ == "__main__":
