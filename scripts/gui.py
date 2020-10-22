@@ -15,9 +15,12 @@ home = os.environ['HOME']
 sys.path.append(home + '/miniconda3/envs/ort3d/lib')
 
 # Native libraries
-import click as ck
+import auto
+import scale_ob as scale
 import script_cad as sc
 import slicer as sl
+import rotate
+import contour
 
 # Make sure that scripts is executed within gui.py directory
 abspath = os.path.abspath(__file__)
@@ -57,43 +60,19 @@ window.close()
 
 # Second window: choose reference points for one direction
 # Define layout
-layout = [  [sg.Text('Adicione os pontos de referência - altura: distância da ponta do dedo médio ao punho/ largura: distância de uma extremidade a outra da mão na altura da AMF ')],
-            [sg.Button('Altura'), sg.Button('Largura'), sg.Button('Confirmar'), sg.Button('Cancelar')]]
+rotate.rot(path)
+inp = contour.cont(path)
 
-# Generate window
-window = sg.Window('Sw medicao nao invasiva', layout)
+dh = abs(inp[2] - inp[3])
+dw = abs(inp[5] - inp[7])
 
-# Declare parameters to choose horizontal or vertical
-h = None
-v = None
-
-# Event Loop to process "events" and get the "values" of the inputs
-while True:
-    event, values = window.read()
-
-    if event in (None, 'Cancelar'):
-        window.close()
-        exit()
-
-    elif event in ('Largura'): # calls click detection function
-        v = ck.img_click(path)
-    
-    elif event in ('Altura'):
-        h = ck.img_click(path)
-
-    elif event in ('Confirmar'):
-        if h is None:
-            sg.popup_ok('Pontos de altura não fornecidos')
-        elif v is None:
-            sg.popup_ok('Pontos de largura não fornecidos')            
-        else:
-            break 
-
-window.close()
+rt = scale.ratio(path)
+dh = dh * rt
+dw = dw * rt
 
 # Third window: show to user hand dimensions in mm
 # Follows the same process as other loops
-layout = [  [sg.Text('As dimensões dessa mão são '+str(v)+' mm de largura e '+str(h)+' mm de altura.')],
+layout = [  [sg.Text('As dimensões dessa mão são '+str(dh)+' mm de altura e '+str(dw)+' mm de largura.')],
             [sg.Button('Gerar Ortese'), sg.Button('Cancelar')] ]
 
 window = sg.Window('Sw medicao nao invasiva', layout)
@@ -105,7 +84,7 @@ while True:
         window.close()
         exit()
     # CAD script call
-    sc.script(h,v)
+    sc.script(dh, dw)
     break
 
 layout = [  [sg.Text("O arquivo .stl foi gerado. Gerar G-Code?")],
