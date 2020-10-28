@@ -10,6 +10,8 @@ import imutils
 def rot(path):
     # Reads image
     img = cv.imread(path)
+    extension = path.split(".")[-1].lower()
+    new_path = f'../data/images/rot_img.{extension}'
     #cv.imshow('palm image',img)
     # To see readen image, uncomment line above
 
@@ -49,9 +51,9 @@ def rot(path):
     # Rotates image by the angle
     rotated = imutils.rotate_bound(img, angle)
 
-    cv.imwrite(path, rotated)
+    cv.imwrite(new_path, rotated)
     #cv.imshow("Rotated (Correct)", rotated)
     #cv.waitKey(0)
     # To see the rotated image or if you uncommented any other line, uncomment lines above
 
-    return
+    return new_path

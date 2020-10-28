@@ -19,6 +19,7 @@ import auto
 import scale_ob as scale
 import script_cad as sc
 import slicer as sl
+import click as ck
 import rotate
 import contour
 
@@ -58,17 +59,68 @@ while True:
 # Closes first window
 window.close()
 
-# Second window: choose reference points for one direction
+# Second window: choose between semi or automatic IP
 # Define layout
-rotate.rot(path)
-inp = contour.cont(path)
+layout = [  [sg.Text('Você deseja colocar manualmente os pontos da mão ou automaticamente?')],
+            [sg.Button('Manualmente'), sg.Button('Automaticamente'), sg.Button('Cancelar')] ]
 
-dh = abs(inp[2] - inp[3])
-dw = abs(inp[5] - inp[7])
+window = sg.Window('Sw medicao nao invasiva', layout)
 
-rt = scale.ratio(path)
-dh = dh * rt
-dw = dw * rt
+while True:
+    event, values = window.read()
+
+    if event in (None, 'Cancelar'):	# If user closes window or clicks cancel
+        window.close()
+        exit()
+
+    if event in ('Automaticamente'):
+        new_path = rotate.rot(path)
+        inp = contour.cont(path)
+
+        dh = abs(inp[2] - inp[3])
+        dw = abs(inp[5] - inp[7])
+
+        rt = scale.ratio(path)
+        dh = dh * rt
+        dw = dw * rt
+        break
+
+    if event in ('Manualmente'):
+        layout = [  [sg.Text('Adicione os pontos de referência - altura: distância da ponta do dedo médio ao punho/ largura: distância de uma extremidade a outra da mão na altura da AMF ')],
+            [sg.Button('Altura'), sg.Button('Largura'), sg.Button('Confirmar'), sg.Button('Cancelar')]]
+
+        # Generate window
+        window = sg.Window('Sw medicao nao invasiva', layout)
+
+        # Declare parameters to choose horizontal or vertical
+        dh = None
+        dw = None
+
+        # Event Loop to process "events" and get the "values" of the inputs
+        while True:
+            event, values = window.read()
+
+            if event in (None, 'Cancelar'):
+                window.close()
+                exit()
+
+            elif event in ('Largura'): # calls click detection function
+                dw = ck.img_click(path)
+            
+            elif event in ('Altura'):
+                dh = ck.img_click(path)
+
+            elif event in ('Confirmar'):
+                if dh is None:
+                    sg.popup_ok('Pontos de altura não fornecidos')
+                elif dw is None:
+                    sg.popup_ok('Pontos de largura não fornecidos')            
+                else:
+                    break 
+
+        window.close()       
+        break
+
 
 # Third window: show to user hand dimensions in mm
 # Follows the same process as other loops
@@ -102,6 +154,10 @@ while True:
     sl.runSlicer()
     sg.popup_ok('G-Code gravado!') 
     break
+
+try: 
+    os.remove(new_path)
+except: pass
 
 #close GUI   
 window.close()
