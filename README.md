@@ -21,7 +21,7 @@ Output: Arquivo GCODE
 ## Instruções para instalar e executar
 
 Primeiro, instale o [miniconda3](https://docs.conda.io/en/latest/miniconda.html)  
-Depois de completar a instalação, reinicie o terminal e execute o arquivo `install.sh` para a instalação de todos os requisitos   
+Depois de completar a instalação, reinicie o terminal e execute o arquivo `install.sh` para a instalação de todos os requisitos. Ative o ambiente com `conda activate ort3d`.   
 Para executar o script, use  
 `python scripts/gui.py`  
 
@@ -48,7 +48,7 @@ Output: GCODE file
 ## Instructions for installing and executing
 
 First, install [miniconda3](https://docs.conda.io/en/latest/miniconda.html)  
-After installation is complete, reboot terminal and run `install.sh` to install all requirements  
+After installation is complete, reboot terminal and run `install.sh` to install all requirements. Activate the environment using `conda activate ort3d`.    
 To run the software  
 `python scripts/gui.py`  
 
