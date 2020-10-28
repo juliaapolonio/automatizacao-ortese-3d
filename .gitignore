@@ -7,5 +7,5 @@
 __pycache__/
 
 Slic3r/
-
-data/models/
+ 
+data/models/pose_iter_102000.caffemodel
