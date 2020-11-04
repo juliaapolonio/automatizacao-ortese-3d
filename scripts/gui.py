@@ -10,6 +10,9 @@ import subprocess
 import os
 import sys
 
+if os.environ.get('DISPLAY','') == '':
+    os.environ.__setitem__('DISPLAY', ':0.0')
+
 # ADD FreeCAD PYTHONPATH
 home = os.environ['HOME']
 sys.path.append(home + '/miniconda3/envs/ort3d/lib')
