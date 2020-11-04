@@ -77,7 +77,6 @@ while True:
         exit()
 
     if event in ('Automaticamente'):
-        new_path = rotate.rot(path)
         inp = contour.cont(path)
 
         dh = abs(inp[2] - inp[3])
@@ -158,9 +157,6 @@ while True:
     sg.popup_ok('G-Code gravado!') 
     break
 
-try: 
-    os.remove(new_path)
-except: pass
 
 #close GUI   
 window.close()
