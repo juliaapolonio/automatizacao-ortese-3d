@@ -1,9 +1,11 @@
 # Ignore all files with:
 
-*.stl
+outputCAD.stl
 
 *.gcode
 
 __pycache__/
 
 Slic3r/
+ 
+data/models/pose_iter_102000.caffemodel
