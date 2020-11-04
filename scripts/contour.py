@@ -58,11 +58,11 @@ def cont(path):
     intersection = np.logical_and(im1, im2)
 
     # List of tuples to save intersection indexes
-    answ = []
+    hpoints = []
     aux = []
-    aux2 = []
+    wpoints = []
 
-    answ += (inp[i] for i in range(4))
+    hpoints += (inp[i] for i in range(4))
 
     for i in range(height-1):
         for j in range(width-1):
@@ -79,9 +79,8 @@ def cont(path):
             )
 
         if dist > old_dist:
-            aux2 = [aux[i], aux[i+1], aux[i+2], aux[i+3]]
+            wpoints = [aux[i], aux[i+1], aux[i+2], aux[i+3]]
 
-    answ += aux2
 
     #img = cv.circle(img, (answ[4], answ[5]), 2, (0, 255, 0), 2)
     #img = cv.circle(img, (answ[6], answ[7]), 2, (0, 255, 0), 2)
@@ -90,8 +89,8 @@ def cont(path):
     #img = cv.circle(img, (answ[0], answ[2]), 2, (0, 255, 0), 2)
     #img = cv.circle(img, (answ[1], answ[3]), 2, (0, 255, 0), 2)
 
-    cv.imshow("foo",img)
-    cv.waitKey()
+    #cv.imshow("foo",img)
+    #cv.waitKey()
     # If you uncommented any line for image visualization, uncomment lines above
 
-    return answ
+    return hpoints, wpoints
