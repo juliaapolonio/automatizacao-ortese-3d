@@ -5,6 +5,7 @@
 import auto
 import cv2 as cv
 import numpy as np
+import math
 
 
 def cont(path):
@@ -58,25 +59,39 @@ def cont(path):
 
     # List of tuples to save intersection indexes
     answ = []
+    aux = []
+    aux2 = []
 
     answ += (inp[i] for i in range(4))
 
-    for i in range(height-1, 0, -1):
-        for j in range(width-1, 0, -1):
+    for i in range(height-1):
+        for j in range(width-1):
             if intersection[i,j]:
-                answ.append(i)
-                answ.append(j)
+                aux.append(j)
+                aux.append(i)
 
+    dist = 0
+    for i in range(0,(len(aux)-2),2):
+        old_dist = dist
+        
+        dist = math.sqrt(
+                ((aux[i] - aux[i+2]) ** 2) + ((aux[i+1] - aux[i+3]) ** 2)
+            )
 
-    #img = cv.circle(img, (answ[5], answ[4]), 2, (0, 255, 0), 2)
-    #img = cv.circle(img, (answ[7], answ[6]), 2, (0, 255, 0), 2)
+        if dist > old_dist:
+            aux2 = [aux[i], aux[i+1], aux[i+2], aux[i+3]]
+
+    answ += aux2
+
+    #img = cv.circle(img, (answ[4], answ[5]), 2, (0, 255, 0), 2)
+    #img = cv.circle(img, (answ[6], answ[7]), 2, (0, 255, 0), 2)
     # To see intersection points, uncomment lines above
     
     #img = cv.circle(img, (answ[0], answ[2]), 2, (0, 255, 0), 2)
     #img = cv.circle(img, (answ[1], answ[3]), 2, (0, 255, 0), 2)
 
-    #cv.imshow("foo",img)
-    #cv.waitKey()
+    cv.imshow("foo",img)
+    cv.waitKey()
     # If you uncommented any line for image visualization, uncomment lines above
 
     return answ
