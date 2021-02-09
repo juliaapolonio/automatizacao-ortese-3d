@@ -76,11 +76,10 @@ while True:
         exit()
 
     if event in ('Automaticamente'):
-        new_path = rotate.rot(path)
-        inp = contour.cont(path)
+        hpoints, wpoints = contour.cont(path)
 
-        dh = abs(inp[2] - inp[3])
-        dw = abs(inp[5] - inp[7])
+        dh = abs(hpoints[2] - hpoints[3])
+        dw = abs(wpoints[0] - wpoints[2])
 
         rt = scale.ratio(path)
         dh = dh * rt
@@ -157,9 +156,6 @@ while True:
     sg.popup_ok('G-Code gravado!') 
     break
 
-try: 
-    os.remove(new_path)
-except: pass
 
 #close GUI   
 window.close()
