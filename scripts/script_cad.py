@@ -26,22 +26,22 @@ def script(heightSize, widthSize):
     path = '..'+os.sep+'data'+os.sep
 
     # Abre o arquivo
-    input_filename = 'outputCAD.stl'
+    input_filename = 'ortese.stl'
     input_path = path+input_filename
     Mesh.open(input_path)
     App.setActiveDocument("Unnamed")
     App.ActiveDocument=App.getDocument("Unnamed")   
 
     # Mesh operations
-    mesh = App.ActiveDocument.outputCAD.Mesh.copy()
+    mesh = App.ActiveDocument.ortese.Mesh.copy()
     mat = App.Matrix()
     mat.scale(scalew,scaleh,1)
     mesh.transform(mat)
     Mesh.show(mesh)
-    App.getDocument("Unnamed").removeObject("outputCAD")
+    App.getDocument("Unnamed").removeObject("ortese")
 
     # Salva o .stl
-    output_filename = 'outputCAD2.stl'
+    output_filename = 'ortese_output.stl'
     output_path = path+output_filename
     mesh.write(output_path)
 
