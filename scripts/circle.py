@@ -15,12 +15,12 @@ def crl(path):
 	output = image.copy()
 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-	gaussian = cv2.GaussianBlur(gray, (11, 11), 0) #5 5
+	gaussian = cv2.GaussianBlur(gray, (7, 7), 0) #5 5
 
 	canny = cv2.Canny(gaussian, 40, 100) #100 200
 
 	rows = canny.shape[0]
-	circles = cv2.HoughCircles(canny, cv2.HOUGH_GRADIENT, 1, rows/8, param1=100, param2=20, minRadius=20, maxRadius=100)
+	circles = cv2.HoughCircles(canny, cv2.HOUGH_GRADIENT, 1, rows/8, param1=100, param2=30, minRadius=20, maxRadius=100)
 
 	if circles is not None:
 		circles_np = np.uint16(np.around(circles))
