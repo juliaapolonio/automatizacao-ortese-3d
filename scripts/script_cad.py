@@ -22,17 +22,20 @@ def script(heightSize, widthSize):
     scalew = widthSize/defaultWidth
 
     # Abre o arquivo
+
     input_filename = '../data/inputCAD.stl'
     Mesh.open(input_filename)
     App.setActiveDocument("Unnamed")
     App.ActiveDocument=App.getDocument("Unnamed")   
 
     # Mesh operations
+
     mesh = App.ActiveDocument.inputCAD.Mesh.copy()
     mat = App.Matrix()
     mat.scale(scalew,scaleh,1)
     mesh.transform(mat)
     Mesh.show(mesh)
+
     App.getDocument("Unnamed").removeObject("inputCAD")
 
     # Salva o .stl
