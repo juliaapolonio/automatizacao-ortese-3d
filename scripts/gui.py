@@ -18,7 +18,6 @@ home = os.environ['HOME']
 sys.path.append(home + '/miniconda3/envs/ort3d/lib')
 
 # Native libraries
-import auto
 import scale_ob as scale
 import script_cad as sc
 import slicer as sl

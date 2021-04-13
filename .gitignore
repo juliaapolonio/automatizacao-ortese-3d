@@ -1,6 +1,6 @@
 # Ignore all files with:
 
-*.stl
+outputCAD.stl
 
 *.gcode
 
